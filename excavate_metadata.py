@@ -10,8 +10,8 @@ def get_like(word, con) :
     query = f"""
             SELECT * 
             FROM metadata_core
-            WHERE title like "%{word}%" AND NOT (subjects like "%nou /%" OR subjects like "%/ nou") 
-        
+            WHERE title like "%{word}%" AND year >= 1960 AND year <= 2021 AND NOT (subjects like "%nou /%" OR subjects like "%/ nou") 
+
 
             """
     df = pd.read_sql(query, con)
@@ -20,7 +20,7 @@ def get_like(word, con) :
 
 
 if __name__ == "__main__":
-    
+    # SQLITE connection
     con = sql.connect("/mnt/disk1/metadata/metadata.db")
 
     # uttrykk å søke etter
