@@ -3,7 +3,7 @@ import pandas as pd
 
 
 
-def get_like(word, con) :
+def get_like(word, con, exclude_nou = False) :
     
     # Søk etter ord i tittelfeltet
     # Uttrykk som inneholder "nou" og "/" sammen i "subjects" blir ekskludert
@@ -14,10 +14,17 @@ def get_like(word, con) :
         AND year >= 1960
         AND year <= 2021
         AND doctype LIKE "digibok"
-        AND NOT ( subjects LIKE "%nou /%"
-                    OR subjects LIKE "%/ nou" ) 
 
             """
+
+    exclude_nou = """
+        AND NOT ( subjects LIKE "%nou /%"
+                    OR subjects LIKE "%/ nou" ) 
+    """
+
+    if exclude_nou:
+        query = query + exclude_nou
+
     df = pd.read_sql(query, con)
     df.to_csv(f"{word.lower().replace(' ', '_')}.csv")
     
@@ -31,9 +38,16 @@ if __name__ == "__main__":
     terms = [
        "evaluering av",
         "evaluering",
+  
+    ]
+    # Uttrykk der man vil ekskludere NOUer
+    terms_exclude_nou = [
         "utredning av",
         "utredning"
     ]
 
     for term in terms:
         get_like(term, con)
+    
+    for term in terms_exclude_nou:
+        get_like(term, con, exclude_nou=True)
