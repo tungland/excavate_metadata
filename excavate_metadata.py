@@ -8,10 +8,14 @@ def get_like(word, con) :
     # Søk etter ord i tittelfeltet
     # Uttrykk som inneholder "nou" og "/" sammen i "subjects" blir ekskludert
     query = f"""
-            SELECT * 
-            FROM metadata_core
-            WHERE title like "%{word}%" AND year >= 1960 AND year <= 2021 AND NOT (subjects like "%nou /%" OR subjects like "%/ nou") 
-
+    SELECT *
+    FROM   metadata_core
+    WHERE  title LIKE "%{word}%"
+        AND year >= 1960
+        AND year <= 2021
+        AND doctype LIKE "digibok"
+        AND NOT ( subjects LIKE "%nou /%"
+                    OR subjects LIKE "%/ nou" ) 
 
             """
     df = pd.read_sql(query, con)
