@@ -21,7 +21,7 @@ def get_like(word, con) :
 
 if __name__ == "__main__":
     
-    con = sql.connect("/mnt/disk2/larsm/metadata/metadata_test.db")
+    con = sql.connect("/mnt/disk1/metadata/metadata.db")
 
     # uttrykk å søke etter
     terms = [
