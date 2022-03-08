@@ -18,7 +18,8 @@ def get_like(word, con, exclude_nou = False) :
             """
 
     exclude_nou = """
-        AND NOT ( subjects LIKE "%nou /%"
+        AND NOT ( subjects LIKE "nou /%"
+                    OR subjects LIKE "%/ nou /%"
                     OR subjects LIKE "%/ nou" ) 
     """
 
@@ -26,8 +27,8 @@ def get_like(word, con, exclude_nou = False) :
         query = query + exclude_nou
 
     df = pd.read_sql(query, con)
-    df.to_excel(f"{word.lower().replace(' ', '_')}.xlsx", sheet_name='Sheet_1')
-    #df.to_csv(f"{word.lower().replace(' ', '_')}.xlsx")
+    #df.to_excel(f"{word.lower().replace(' ', '_')}.xlsx", sheet_name='Sheet_1')
+    df.to_csv(f"{word.lower().replace(' ', '_')}.csv")
     
 
 
