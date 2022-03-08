@@ -26,7 +26,8 @@ def get_like(word, con, exclude_nou = False) :
         query = query + exclude_nou
 
     df = pd.read_sql(query, con)
-    df.to_csv(f"{word.lower().replace(' ', '_')}.csv")
+    df.to_excel(f"{word.lower().replace(' ', '_')}.xlsx", sheet_name='Sheet_1')
+    #df.to_csv(f"{word.lower().replace(' ', '_')}.xlsx")
     
 
 
