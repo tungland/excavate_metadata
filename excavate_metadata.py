@@ -12,7 +12,7 @@ def get_like(word, con, exclude_nou = False) :
     FROM   metadata_core
     WHERE  title LIKE "%{word}%"
         AND year >= 1960
-        AND year <= 2021
+        AND year <= 2023
         AND doctype LIKE "digibok"
 
             """
@@ -34,7 +34,8 @@ def get_like(word, con, exclude_nou = False) :
 
 if __name__ == "__main__":
     # SQLITE connection
-    con = sql.connect("/mnt/disk1/metadata/metadata.db")
+    # con = sql.connect("/mnt/disk1/metadata/metadata.db")'
+    con = sql.connect("metadata.db")
 
     # uttrykk å søke etter
     terms = [
